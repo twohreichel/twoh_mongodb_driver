@@ -1,0 +1,48 @@
+{
+  "name": "twoh/twoh_mongodb_driver",
+  "type": "typo3-cms-extension",
+  "description": "Extends TYPO3 to support MongoDB.",
+  "keywords": [
+    "TYPO3",
+    "extension",
+    "MongoDb",
+    "driver"
+  ],
+  "license": "GPL-2.0+",
+  "authors": [
+    {
+      "name": "Andreas Reichel",
+      "role": "Developer",
+      "email": "a.reichel91@outlook.com"
+    }
+  ],
+  "version": "1.0.0",
+  "require": {
+    "php": ">=8.0",
+    "typo3/cms-core": "^12.4",
+    "mongodb/mongodb": "^1.17",
+    "ext-mongodb": "*"
+  },
+  "require-dev": {
+    "roave/security-advisories": "dev-latest"
+  },
+  "autoload": {
+    "psr-4": {
+      "TWOH\\TwohMongodbDriver\\": "Classes"
+    },
+    "classmap": [
+      "Classes/"
+    ]
+  },
+  "extra": {
+    "typo3/cms": {
+      "extension-key": "twoh_mongodb_driver"
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "typo3/cms-composer-installers": true,
+      "typo3/class-alias-loader": true
+    }
+  }
+}

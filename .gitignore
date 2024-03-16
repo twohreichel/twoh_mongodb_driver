@@ -1,0 +1,9 @@
+# idea
+.idea
+.directory
+config.codekit
+.DS_Store
+.codekit-cache
+
+# nodejs
+/node*

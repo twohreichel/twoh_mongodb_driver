@@ -1,0 +1,22 @@
+<html data-namespace-typo3-fluid="true" xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers">
+
+<f:layout name="Module" />
+
+<f:section name="Content">
+    <div class="module">
+        <div class="module-body t3js-module-body">
+            <div class="wrapper">
+                <f:if condition="{headline}">
+                    <h1>
+                        <f:format.raw>{headline}</f:format.raw>
+                    </h1>
+                </f:if>
+
+                <f:if condition="{routeActionIdentifier}">
+                    <f:render partial="AdminModule/{routeActionIdentifier}" arguments="{_all}" />
+                </f:if>
+            </div>
+        </div>
+    </div>
+</f:section>
+</html>

@@ -1,0 +1,15 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  TWOH\TwohMongodbDriver\:
+    resource: '../Classes/*'
+    exclude: '../Classes/Domain/Model/*'
+
+  TWOH\TwohMongodbDriver\Command\CreateBigDataCommand:
+    tags:
+      - name: console.command
+        command: 'create:bigdata'
+        description: 'A command to create big test data.'

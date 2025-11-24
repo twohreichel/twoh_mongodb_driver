@@ -22,7 +22,7 @@
       "email": "igor.smertin@web.de"
     }
   ],
-  "version": "1.0.1",
+  "version": "1.0.2",
   "support": {
     "issues": "https://github.com/twohreichel/twoh_mongodb_driver/issues",
     "source": "https://github.com/twohreichel/twoh_mongodb_driver",
@@ -37,8 +37,8 @@
   "require": {
     "php": ">=8.0",
     "typo3/cms-core": "^12.4",
-    "mongodb/mongodb": "^1.17",
-    "ext-mongodb": "*"
+    "mongodb/mongodb": ">=1.17 <2.0",
+    "ext-mongodb": ">=1.17"
   },
   "require-dev": {
     "roave/security-advisories": "dev-latest"

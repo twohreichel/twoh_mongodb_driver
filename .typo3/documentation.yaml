@@ -1,0 +1,9 @@
+meta:
+  title: MongoDB Driver
+  description: TYPO3 Extension that adds support for MongoDB connections and a backend module.
+  author: Andreas Reichel, Igor Smertin
+  license: 'GPL-2.0-or-later'
+  version: '1.0.1'
+  extension-key: twoh_mongodb_driver
+  repository: 'https://github.com/twohreichel/twoh_mongodb_driver'
+  external: 'https://github.com/twohreichel/twoh_mongodb_driver/blob/main/Documentation/Index.rst'

@@ -6,17 +6,34 @@
     "TYPO3",
     "extension",
     "MongoDb",
-    "driver"
+    "driver",
+    "database"
   ],
-  "license": "GPL-2.0+",
+  "license": "GPL-2.0-or-later",
   "authors": [
     {
       "name": "Andreas Reichel",
       "role": "Developer",
       "email": "a.reichel91@outlook.com"
+    },
+    {
+      "name": "Igor Smertin",
+      "role": "Developer",
+      "email": "igor.smertin@web.de"
     }
   ],
-  "version": "1.0.0",
+  "version": "1.0.1",
+  "support": {
+    "issues": "https://github.com/twohreichel/twoh_mongodb_driver/issues",
+    "source": "https://github.com/twohreichel/twoh_mongodb_driver",
+    "docs": "https://docs.typo3.org/p/twoh/twoh_mongodb_driver/main/en-us/"
+  },
+  "config": {
+    "allow-plugins": {
+      "typo3/cms-composer-installers": true,
+      "typo3/class-alias-loader": true
+    }
+  },
   "require": {
     "php": ">=8.0",
     "typo3/cms-core": "^12.4",
@@ -37,12 +54,6 @@
   "extra": {
     "typo3/cms": {
       "extension-key": "twoh_mongodb_driver"
-    }
-  },
-  "config": {
-    "allow-plugins": {
-      "typo3/cms-composer-installers": true,
-      "typo3/class-alias-loader": true
     }
   }
 }

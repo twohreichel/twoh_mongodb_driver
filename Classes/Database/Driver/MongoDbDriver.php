@@ -4,10 +4,6 @@ declare(strict_types=1);
 
 namespace TWOH\TwohMongodbDriver\Database\Driver;
 
-use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\Driver;
-use Doctrine\DBAL\Driver\API\ExceptionConverter;
-use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Exception;
 use MongoDB\Client;
 use MongoDB\Database;
@@ -16,17 +12,24 @@ use RuntimeException;
 use TWOH\TwohMongodbDriver\Database\Connection\MongoDbConnection;
 use TWOH\TwohMongodbDriver\Domain\Model\MongodbConfiguration;
 
-class MongoDbDriver implements Driver
+/**
+ * MongoDB Driver for TYPO3
+ *
+ * This driver provides MongoDB connectivity for TYPO3 applications.
+ * Unlike SQL-based drivers, MongoDB is a NoSQL database and does not
+ * implement the Doctrine DBAL Driver interface as it's conceptually different.
+ */
+class MongoDbDriver
 {
     /**
-     * @var Client
+     * @var Client|null
      */
-    protected Client $client;
+    protected ?Client $client = null;
 
     /**
-     * @var Database
+     * @var Database|null
      */
-    protected Database $database;
+    protected ?Database $database = null;
 
     /**
      * @param array $params
@@ -118,6 +121,8 @@ class MongoDbDriver implements Driver
     }
 
     /**
+     * Returns the platform identifier for this driver
+     *
      * @return string
      */
     public function getDatabasePlatform(): string
@@ -126,13 +131,22 @@ class MongoDbDriver implements Driver
     }
 
     /**
-     * @param Connection $conn
-     * @param AbstractPlatform $platform
+     * Get the MongoDB client instance
+     *
+     * @return Client|null
      */
-    public function getSchemaManager(Connection $conn, AbstractPlatform $platform): void {}
+    public function getClient(): ?Client
+    {
+        return $this->client;
+    }
 
     /**
-     * @return ExceptionConverter
+     * Get the MongoDB database instance
+     *
+     * @return Database|null
      */
-    public function getExceptionConverter(): ExceptionConverter {}
+    public function getDatabase(): ?Database
+    {
+        return $this->database;
+    }
 }

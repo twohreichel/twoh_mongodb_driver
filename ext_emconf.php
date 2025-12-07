@@ -12,11 +12,11 @@ $EM_CONF['twoh_mongodb_driver'] = [
     'uploadfolder' => '0',
     'createDirs' => '',
     'clearCacheOnLoad' => 0,
-    'version' => '1.0.3',
+    'version' => '1.0.4',
     'constraints' => [
         'depends' => [
-            'typo3' => '12.4.99',
-            'php' => '8.0-8.3.99'
+            'typo3' => '13.4.0-13.4.99',
+            'php' => '8.2.0-8.3.99'
         ],
         'conflicts' => [],
         'suggests' => [],

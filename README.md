@@ -1,119 +1,167 @@
-# MongoDB Driver
+# MongoDB Driver for TYPO3
 
-## Table of contents
+[![TYPO3 13](https://img.shields.io/badge/TYPO3-13.4-orange.svg)](https://get.typo3.org/version/13)
+[![PHP](https://img.shields.io/badge/PHP-8.2--8.3-blue.svg)](https://www.php.net/)
+[![License](https://img.shields.io/badge/License-GPL--2.0--or--later-green.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
+[![Version](https://img.shields.io/badge/Version-1.0.4-brightgreen.svg)](https://github.com/twohreichel/twoh_mongodb_driver/releases)
+[![MongoDB](https://img.shields.io/badge/MongoDB-Driver-47A248.svg?logo=mongodb&logoColor=white)](https://www.mongodb.com/)
+[![GitHub Issues](https://img.shields.io/github/issues/twohreichel/twoh_mongodb_driver)](https://github.com/twohreichel/twoh_mongodb_driver/issues)
 
-- [General info](#general-info)
-- [Getting started](#getting-started)
+> Extends TYPO3 to support MongoDB as a database backend.
+
+---
+
+## 📑 Table of Contents
+
+- [General Info](#general-info)
+- [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
-  - [Setup](#setup)
+  - [Installation](#installation)
+  - [Configuration](#configuration)
+- [Usage](#usage)
+  - [Basic Usage](#basic-usage)
+  - [Full Example](#full-example)
+- [Charts](#charts)
+- [Documentation](#documentation)
+- [Support](#support)
 - [Authors](#authors)
+- [License](#license)
 
-## General info
+---
 
-Extends TYPO3 to support MongoDB.
+## General Info
 
-## Getting started
+This TYPO3 extension provides a MongoDB driver that allows you to connect and interact with MongoDB databases directly from your TYPO3 installation.
+
+**Keywords:** `TYPO3` `extension` `MongoDB` `driver` `database`
+
+---
+
+## Getting Started
 
 ### Prerequisites
 
-What things you need to install the software.
+| Requirement      | Version          |
+|------------------|------------------|
+| PHP              | >=8.2 <8.4       |
+| TYPO3            | ^13.4            |
+| MongoDB Library  | >=1.17 <2.0      |
+| ext-mongodb      | >=1.17           |
 
-* **PHP** ^8.0
-* **composer** ^2
-* **TYPO3** ^12
+### Installation
 
-### Setup
-* Install Extension via Composer or FTP!
-* Activate Extension
+1. Install the extension via Composer:
+   ```bash
+   composer require twoh/twoh_mongodb_driver
+   ```
 
-#### Configure Connection
-Add Driver Connection Settings below to your `config/system/settings.php` or `config/system/additional.php`.
+2. Activate the extension in the TYPO3 Extension Manager.
 
-````php
+### Configuration
+
+Add the driver connection settings to your `config/system/settings.php` or `config/system/additional.php`:
+
+```php
 $GLOBALS['TYPO3_CONF_VARS']['DRIVER']['MongoDB'] = [
-    'host' => getenv('TOOL_DB_HOST'),
-    'dbname' => getenv('TOOL_DB_DATABASE'),
-    'user' => getenv('TOOL_DB_USERNAME'),
+    'host'     => getenv('TOOL_DB_HOST'),
+    'dbname'   => getenv('TOOL_DB_DATABASE'),
+    'user'     => getenv('TOOL_DB_USERNAME'),
     'password' => getenv('TOOL_DB_PASSWORD'),
-    'port' => getenv('TOOL_DB_PORT'),
+    'port'     => getenv('TOOL_DB_PORT'),
 ];
-````
+```
 
-#### Call ConnectionPool
-You can access the ConnectionPool Object and carry out your queries using the following line of code.
+---
 
-namespace: `TWOH\TwohMongodbDriver\Adapter\MongodbConnectionPoolAdapter`
+## Usage
 
-````php
+### Basic Usage
+
+Access the ConnectionPool object to execute your queries:
+
+**Namespace:** `TWOH\TwohMongodbDriver\Adapter\MongodbConnectionPoolAdapter`
+
+```php
 $mongodbConnectionPoolAdapter = GeneralUtility::makeInstance(MongodbConnectionPoolAdapter::class);
+
 $mongodbConnectionPoolAdapter->getConnectionPool()->selectDocuments(
     $collectionName, 
     $filter,
     $options
 );
-````
+```
 
-###### Example
-The Example below shows how you can take a MongoDB call and return the output into your view:
+### Full Example
 
-````php
-/**
- * @var MongodbConnectionPoolAdapter 
- */
+The following example demonstrates how to query MongoDB and return the results to your view:
+
+```php
 protected MongodbConnectionPoolAdapter $mongodbConnectionPoolAdapter;
 
-/**
- * @param ModuleTemplateFactory $moduleTemplateFactory
- * @param IconFactory $iconFactory
- */
 public function __construct(
     protected MongodbConnectionPoolAdapter $mongodbConnectionPoolAdapter
 ) {
 }
 
-/**
- * @param ServerRequestInterface $request
- * @param ModuleTemplate $view
- * @return ResponseInterface
-*/
 public function indexAction(
     ServerRequestInterface $request,
     ModuleTemplate $view
-): ResponseInterface
-{
-    $view->assignMultiple(
-        [
-            'users' => $this->mongodbConnectionPoolAdapter->getConnectionPool()->selectDocuments(
-                'user',
-                [
-                    'uuid' => 'user1',
+): ResponseInterface {
+    $view->assignMultiple([
+        'users' => $this->mongodbConnectionPoolAdapter->getConnectionPool()->selectDocuments(
+            'user',
+            [
+                'uuid' => 'user1',
+            ],
+            [
+                'limit' => 5,
+                'projection' => [
+                    'uuid' => 1,
+                    'username' => 1,
+                    'email' => 1,
+                    'name' => 1,
+                    'pageInteractions' => 1,
                 ],
-                [
-                    'limit' => 5,
-                    'projection' => [
-                        'uuid' => 1,
-                        'username' => 1,
-                        'email' => 1,
-                        'name' => 1,
-                        'pageInteractions' => 1,
-                    ],
-                ],
-            )
-        ]
-    );
+            ],
+        )
+    ]);
+    
     return $view->renderResponse('AdminModule/Index');
 }
-````
+```
+
+---
 
 ## Charts
-We integrate our charts via chartjs.org:
-[Chart JS Org](https://www.chartjs.org/docs/4.4.1/getting-started/usage.html)
 
-## ConnectionPool Functions
-[ConnectionPool Functions](Documentation/ConnectionPool.md)
+This extension integrates charts via [Chart.js](https://www.chartjs.org/docs/4.4.1/getting-started/usage.html).
+
+---
+
+## Documentation
+
+📖 **[ConnectionPool Functions](Documentation/ConnectionPool.md)** – Detailed documentation of all available ConnectionPool methods.
+
+📚 **[Official Documentation](https://docs.typo3.org/p/twoh/twoh_mongodb_driver/main/en-us/)** – Full documentation on docs.typo3.org.
+
+---
+
+## Support
+
+- 🐛 **[Report Issues](https://github.com/twohreichel/twoh_mongodb_driver/issues)** – Found a bug? Let us know!
+- 📦 **[Source Code](https://github.com/twohreichel/twoh_mongodb_driver)** – View the source on GitHub.
+
+---
 
 ## Authors
 
-- **Andreas Reichel** - _Initial work_
-- **Andreas Reichel** - _Bug fixes_
-- **Andreas Reichel** - _Feature development_
+| Name | Role | Contact |
+|------|------|---------|
+| **Andreas Reichel** | Developer | [a.reichel91@outlook.com](mailto:a.reichel91@outlook.com) |
+| **Igor Smertin** | Developer | [igor.smertin@web.de](mailto:igor.smertin@web.de) |
+
+---
+
+## License
+
+This project is licensed under the **GPL-2.0-or-later** license. See the [LICENSE](LICENSE) file for details.

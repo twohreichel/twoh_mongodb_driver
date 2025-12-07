@@ -6,6 +6,7 @@ namespace TWOH\TwohMongodbDriver\Tests\Unit\Database\Connection;
 
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
+use ReflectionClass;
 use TWOH\TwohMongodbDriver\Database\Connection\MongoDbConnection;
 use TWOH\TwohMongodbDriver\Domain\Model\MongodbConfiguration;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
@@ -23,7 +24,7 @@ final class MongoDbConnectionTest extends UnitTestCase
     #[Test]
     public function classIsFinal(): void
     {
-        $reflection = new \ReflectionClass(MongoDbConnection::class);
+        $reflection = new ReflectionClass(MongoDbConnection::class);
 
         self::assertTrue($reflection->isFinal());
     }
@@ -31,7 +32,7 @@ final class MongoDbConnectionTest extends UnitTestCase
     #[Test]
     public function constructorAcceptsDatabaseAndConfiguration(): void
     {
-        $reflection = new \ReflectionClass(MongoDbConnection::class);
+        $reflection = new ReflectionClass(MongoDbConnection::class);
         $constructor = $reflection->getConstructor();
         $parameters = $constructor->getParameters();
 
@@ -43,7 +44,7 @@ final class MongoDbConnectionTest extends UnitTestCase
     #[Test]
     public function hasSelectDocumentsMethod(): void
     {
-        $reflection = new \ReflectionClass(MongoDbConnection::class);
+        $reflection = new ReflectionClass(MongoDbConnection::class);
 
         self::assertTrue($reflection->hasMethod('selectDocuments'));
 
@@ -55,7 +56,7 @@ final class MongoDbConnectionTest extends UnitTestCase
     #[Test]
     public function hasCountDocumentsMethod(): void
     {
-        $reflection = new \ReflectionClass(MongoDbConnection::class);
+        $reflection = new ReflectionClass(MongoDbConnection::class);
 
         self::assertTrue($reflection->hasMethod('countDocuments'));
 
@@ -67,7 +68,7 @@ final class MongoDbConnectionTest extends UnitTestCase
     #[Test]
     public function hasUpdateOneDocumentMethod(): void
     {
-        $reflection = new \ReflectionClass(MongoDbConnection::class);
+        $reflection = new ReflectionClass(MongoDbConnection::class);
 
         self::assertTrue($reflection->hasMethod('updateOneDocument'));
 
@@ -78,7 +79,7 @@ final class MongoDbConnectionTest extends UnitTestCase
     #[Test]
     public function hasUpdateManyDocumentsMethod(): void
     {
-        $reflection = new \ReflectionClass(MongoDbConnection::class);
+        $reflection = new ReflectionClass(MongoDbConnection::class);
 
         self::assertTrue($reflection->hasMethod('updateManyDocuments'));
 
@@ -89,7 +90,7 @@ final class MongoDbConnectionTest extends UnitTestCase
     #[Test]
     public function hasDeleteOneDocumentMethod(): void
     {
-        $reflection = new \ReflectionClass(MongoDbConnection::class);
+        $reflection = new ReflectionClass(MongoDbConnection::class);
 
         self::assertTrue($reflection->hasMethod('deleteOneDocument'));
 
@@ -100,7 +101,7 @@ final class MongoDbConnectionTest extends UnitTestCase
     #[Test]
     public function hasDeleteManyDocumentsMethod(): void
     {
-        $reflection = new \ReflectionClass(MongoDbConnection::class);
+        $reflection = new ReflectionClass(MongoDbConnection::class);
 
         self::assertTrue($reflection->hasMethod('deleteManyDocuments'));
 
@@ -111,7 +112,7 @@ final class MongoDbConnectionTest extends UnitTestCase
     #[Test]
     public function hasInsertOneDocumentMethod(): void
     {
-        $reflection = new \ReflectionClass(MongoDbConnection::class);
+        $reflection = new ReflectionClass(MongoDbConnection::class);
 
         self::assertTrue($reflection->hasMethod('insertOneDocument'));
 
@@ -122,7 +123,7 @@ final class MongoDbConnectionTest extends UnitTestCase
     #[Test]
     public function hasInsertManyDocumentsMethod(): void
     {
-        $reflection = new \ReflectionClass(MongoDbConnection::class);
+        $reflection = new ReflectionClass(MongoDbConnection::class);
 
         self::assertTrue($reflection->hasMethod('insertManyDocuments'));
 
@@ -134,7 +135,7 @@ final class MongoDbConnectionTest extends UnitTestCase
     #[Test]
     public function hasSelectCollectionMethod(): void
     {
-        $reflection = new \ReflectionClass(MongoDbConnection::class);
+        $reflection = new ReflectionClass(MongoDbConnection::class);
 
         self::assertTrue($reflection->hasMethod('selectCollection'));
 
@@ -145,7 +146,7 @@ final class MongoDbConnectionTest extends UnitTestCase
     #[Test]
     public function hasModifyCollectionMethod(): void
     {
-        $reflection = new \ReflectionClass(MongoDbConnection::class);
+        $reflection = new ReflectionClass(MongoDbConnection::class);
 
         self::assertTrue($reflection->hasMethod('modifyCollection'));
 
@@ -156,7 +157,7 @@ final class MongoDbConnectionTest extends UnitTestCase
     #[Test]
     public function hasDropCollectionMethod(): void
     {
-        $reflection = new \ReflectionClass(MongoDbConnection::class);
+        $reflection = new ReflectionClass(MongoDbConnection::class);
 
         self::assertTrue($reflection->hasMethod('dropCollection'));
 
@@ -167,7 +168,7 @@ final class MongoDbConnectionTest extends UnitTestCase
     #[Test]
     public function hasCreateCollectionMethod(): void
     {
-        $reflection = new \ReflectionClass(MongoDbConnection::class);
+        $reflection = new ReflectionClass(MongoDbConnection::class);
 
         self::assertTrue($reflection->hasMethod('createCollection'));
 
@@ -178,7 +179,7 @@ final class MongoDbConnectionTest extends UnitTestCase
     #[Test]
     public function hasListCollectionsMethod(): void
     {
-        $reflection = new \ReflectionClass(MongoDbConnection::class);
+        $reflection = new ReflectionClass(MongoDbConnection::class);
 
         self::assertTrue($reflection->hasMethod('listCollections'));
 
@@ -189,7 +190,7 @@ final class MongoDbConnectionTest extends UnitTestCase
     #[Test]
     public function hasGetConnectionMethod(): void
     {
-        $reflection = new \ReflectionClass(MongoDbConnection::class);
+        $reflection = new ReflectionClass(MongoDbConnection::class);
 
         self::assertTrue($reflection->hasMethod('getConnection'));
 
@@ -200,7 +201,7 @@ final class MongoDbConnectionTest extends UnitTestCase
     #[Test]
     public function hasSetConnectionMethod(): void
     {
-        $reflection = new \ReflectionClass(MongoDbConnection::class);
+        $reflection = new ReflectionClass(MongoDbConnection::class);
 
         self::assertTrue($reflection->hasMethod('setConnection'));
 
@@ -212,7 +213,7 @@ final class MongoDbConnectionTest extends UnitTestCase
     #[Test]
     public function hasGetMongodbConfigurationMethod(): void
     {
-        $reflection = new \ReflectionClass(MongoDbConnection::class);
+        $reflection = new ReflectionClass(MongoDbConnection::class);
 
         self::assertTrue($reflection->hasMethod('getMongodbConfiguration'));
 
@@ -223,7 +224,7 @@ final class MongoDbConnectionTest extends UnitTestCase
     #[Test]
     public function hasSetMongodbConfigurationMethod(): void
     {
-        $reflection = new \ReflectionClass(MongoDbConnection::class);
+        $reflection = new ReflectionClass(MongoDbConnection::class);
 
         self::assertTrue($reflection->hasMethod('setMongodbConfiguration'));
 
@@ -235,7 +236,7 @@ final class MongoDbConnectionTest extends UnitTestCase
     #[Test]
     public function selectDocumentsMethodHasCorrectParameters(): void
     {
-        $reflection = new \ReflectionClass(MongoDbConnection::class);
+        $reflection = new ReflectionClass(MongoDbConnection::class);
         $method = $reflection->getMethod('selectDocuments');
         $parameters = $method->getParameters();
 
@@ -250,7 +251,7 @@ final class MongoDbConnectionTest extends UnitTestCase
     #[Test]
     public function countDocumentsMethodHasCorrectParameters(): void
     {
-        $reflection = new \ReflectionClass(MongoDbConnection::class);
+        $reflection = new ReflectionClass(MongoDbConnection::class);
         $method = $reflection->getMethod('countDocuments');
         $parameters = $method->getParameters();
 
@@ -263,7 +264,7 @@ final class MongoDbConnectionTest extends UnitTestCase
     #[Test]
     public function insertOneDocumentMethodHasCorrectParameters(): void
     {
-        $reflection = new \ReflectionClass(MongoDbConnection::class);
+        $reflection = new ReflectionClass(MongoDbConnection::class);
         $method = $reflection->getMethod('insertOneDocument');
         $parameters = $method->getParameters();
 
@@ -276,7 +277,7 @@ final class MongoDbConnectionTest extends UnitTestCase
     #[Test]
     public function insertManyDocumentsMethodHasCorrectParameters(): void
     {
-        $reflection = new \ReflectionClass(MongoDbConnection::class);
+        $reflection = new ReflectionClass(MongoDbConnection::class);
         $method = $reflection->getMethod('insertManyDocuments');
         $parameters = $method->getParameters();
 
@@ -289,7 +290,7 @@ final class MongoDbConnectionTest extends UnitTestCase
     #[Test]
     public function updateOneDocumentMethodHasCorrectParameters(): void
     {
-        $reflection = new \ReflectionClass(MongoDbConnection::class);
+        $reflection = new ReflectionClass(MongoDbConnection::class);
         $method = $reflection->getMethod('updateOneDocument');
         $parameters = $method->getParameters();
 
@@ -303,7 +304,7 @@ final class MongoDbConnectionTest extends UnitTestCase
     #[Test]
     public function deleteOneDocumentMethodHasCorrectParameters(): void
     {
-        $reflection = new \ReflectionClass(MongoDbConnection::class);
+        $reflection = new ReflectionClass(MongoDbConnection::class);
         $method = $reflection->getMethod('deleteOneDocument');
         $parameters = $method->getParameters();
 
@@ -316,7 +317,7 @@ final class MongoDbConnectionTest extends UnitTestCase
     #[Test]
     public function connectionPropertyIsDatabaseType(): void
     {
-        $reflection = new \ReflectionClass(MongoDbConnection::class);
+        $reflection = new ReflectionClass(MongoDbConnection::class);
         $property = $reflection->getProperty('connection');
 
         self::assertTrue($property->hasType());
@@ -326,7 +327,7 @@ final class MongoDbConnectionTest extends UnitTestCase
     #[Test]
     public function mongodbConfigurationPropertyIsCorrectType(): void
     {
-        $reflection = new \ReflectionClass(MongoDbConnection::class);
+        $reflection = new ReflectionClass(MongoDbConnection::class);
         $property = $reflection->getProperty('mongodbConfiguration');
 
         self::assertTrue($property->hasType());

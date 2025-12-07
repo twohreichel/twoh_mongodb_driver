@@ -7,6 +7,7 @@ namespace TWOH\TwohMongodbDriver\Tests\Unit\Command;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
 use Psr\Log\LoggerInterface;
+use ReflectionClass;
 use Symfony\Component\Console\Command\Command;
 use TWOH\TwohMongodbDriver\Command\CreateBigDataCommand;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
@@ -52,7 +53,7 @@ final class CreateBigDataCommandTest extends UnitTestCase
     public function configureSetshelpText(): void
     {
         // Use reflection to invoke protected configure method
-        $reflection = new \ReflectionClass($this->subject);
+        $reflection = new ReflectionClass($this->subject);
         $method = $reflection->getMethod('configure');
         $method->setAccessible(true);
 
@@ -69,7 +70,7 @@ final class CreateBigDataCommandTest extends UnitTestCase
         $this->subject->setLogger($loggerMock);
 
         // Use reflection to verify logger was set
-        $reflection = new \ReflectionClass($this->subject);
+        $reflection = new ReflectionClass($this->subject);
         $property = $reflection->getProperty('logger');
         $property->setAccessible(true);
 
@@ -95,7 +96,7 @@ final class CreateBigDataCommandTest extends UnitTestCase
     #[Test]
     public function executeMethodExists(): void
     {
-        $reflection = new \ReflectionClass(CreateBigDataCommand::class);
+        $reflection = new ReflectionClass(CreateBigDataCommand::class);
 
         self::assertTrue($reflection->hasMethod('execute'));
 
@@ -106,7 +107,7 @@ final class CreateBigDataCommandTest extends UnitTestCase
     #[Test]
     public function executeMethodHasCorrectParameters(): void
     {
-        $reflection = new \ReflectionClass(CreateBigDataCommand::class);
+        $reflection = new ReflectionClass(CreateBigDataCommand::class);
         $method = $reflection->getMethod('execute');
         $parameters = $method->getParameters();
 
@@ -118,7 +119,7 @@ final class CreateBigDataCommandTest extends UnitTestCase
     #[Test]
     public function executeMethodReturnsInteger(): void
     {
-        $reflection = new \ReflectionClass(CreateBigDataCommand::class);
+        $reflection = new ReflectionClass(CreateBigDataCommand::class);
         $method = $reflection->getMethod('execute');
         $returnType = $method->getReturnType();
 
@@ -129,7 +130,7 @@ final class CreateBigDataCommandTest extends UnitTestCase
     #[Test]
     public function configureMethodExists(): void
     {
-        $reflection = new \ReflectionClass(CreateBigDataCommand::class);
+        $reflection = new ReflectionClass(CreateBigDataCommand::class);
 
         self::assertTrue($reflection->hasMethod('configure'));
 
@@ -141,7 +142,7 @@ final class CreateBigDataCommandTest extends UnitTestCase
     public function loggerPropertyExists(): void
     {
         // LoggerAwareTrait adds a logger property
-        $reflection = new \ReflectionClass(CreateBigDataCommand::class);
+        $reflection = new ReflectionClass(CreateBigDataCommand::class);
 
         self::assertTrue($reflection->hasProperty('logger'));
     }
@@ -149,7 +150,7 @@ final class CreateBigDataCommandTest extends UnitTestCase
     #[Test]
     public function usesLoggerAwareTrait(): void
     {
-        $reflection = new \ReflectionClass(CreateBigDataCommand::class);
+        $reflection = new ReflectionClass(CreateBigDataCommand::class);
         $traits = $reflection->getTraitNames();
 
         self::assertContains('Psr\Log\LoggerAwareTrait', $traits);

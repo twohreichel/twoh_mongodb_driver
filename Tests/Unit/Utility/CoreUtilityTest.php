@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace TWOH\TwohMongodbDriver\Tests\Unit\Utility;
 
+use Generator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -28,7 +29,7 @@ final class CoreUtilityTest extends UnitTestCase
         self::assertSame($expected, $result);
     }
 
-    public static function snakeCaseToUpperCamelCaseDataProvider(): \Generator
+    public static function snakeCaseToUpperCamelCaseDataProvider(): Generator
     {
         yield 'empty string' => ['', ''];
         yield 'single word lowercase' => ['hello', 'Hello'];

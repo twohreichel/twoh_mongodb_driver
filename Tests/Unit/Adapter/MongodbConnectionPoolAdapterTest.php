@@ -6,6 +6,7 @@ namespace TWOH\TwohMongodbDriver\Tests\Unit\Adapter;
 
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
+use ReflectionClass;
 use TWOH\TwohMongodbDriver\Adapter\MongodbConnectionPoolAdapter;
 use TWOH\TwohMongodbDriver\Database\Connection\MongoDbConnection;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
@@ -49,7 +50,7 @@ final class MongodbConnectionPoolAdapterTest extends UnitTestCase
     #[Test]
     public function getConnectionPoolMethodExists(): void
     {
-        $reflection = new \ReflectionClass(MongodbConnectionPoolAdapter::class);
+        $reflection = new ReflectionClass(MongodbConnectionPoolAdapter::class);
 
         self::assertTrue($reflection->hasMethod('getConnectionPool'));
 
@@ -60,7 +61,7 @@ final class MongodbConnectionPoolAdapterTest extends UnitTestCase
     #[Test]
     public function getConnectionPoolMethodHasCorrectReturnType(): void
     {
-        $reflection = new \ReflectionClass(MongodbConnectionPoolAdapter::class);
+        $reflection = new ReflectionClass(MongodbConnectionPoolAdapter::class);
         $method = $reflection->getMethod('getConnectionPool');
         $returnType = $method->getReturnType();
 
@@ -71,7 +72,7 @@ final class MongodbConnectionPoolAdapterTest extends UnitTestCase
     #[Test]
     public function getConnectionPoolMethodHasNoParameters(): void
     {
-        $reflection = new \ReflectionClass(MongodbConnectionPoolAdapter::class);
+        $reflection = new ReflectionClass(MongodbConnectionPoolAdapter::class);
         $method = $reflection->getMethod('getConnectionPool');
         $parameters = $method->getParameters();
 
@@ -81,7 +82,7 @@ final class MongodbConnectionPoolAdapterTest extends UnitTestCase
     #[Test]
     public function classHasNoProperties(): void
     {
-        $reflection = new \ReflectionClass(MongodbConnectionPoolAdapter::class);
+        $reflection = new ReflectionClass(MongodbConnectionPoolAdapter::class);
         $properties = $reflection->getProperties();
 
         // Adapter is a simple accessor, no internal state expected
@@ -91,7 +92,7 @@ final class MongodbConnectionPoolAdapterTest extends UnitTestCase
     #[Test]
     public function classIsNotFinal(): void
     {
-        $reflection = new \ReflectionClass(MongodbConnectionPoolAdapter::class);
+        $reflection = new ReflectionClass(MongodbConnectionPoolAdapter::class);
 
         // Can be extended if needed
         self::assertFalse($reflection->isFinal());
@@ -100,7 +101,7 @@ final class MongodbConnectionPoolAdapterTest extends UnitTestCase
     #[Test]
     public function classIsNotAbstract(): void
     {
-        $reflection = new \ReflectionClass(MongodbConnectionPoolAdapter::class);
+        $reflection = new ReflectionClass(MongodbConnectionPoolAdapter::class);
 
         self::assertFalse($reflection->isAbstract());
     }
@@ -110,7 +111,7 @@ final class MongodbConnectionPoolAdapterTest extends UnitTestCase
     {
         // Verify the method accesses the correct global path
         // by reading the method implementation
-        $reflection = new \ReflectionClass(MongodbConnectionPoolAdapter::class);
+        $reflection = new ReflectionClass(MongodbConnectionPoolAdapter::class);
         $method = $reflection->getMethod('getConnectionPool');
 
         // Get the method source using reflection
@@ -120,12 +121,12 @@ final class MongodbConnectionPoolAdapterTest extends UnitTestCase
 
         $source = file_get_contents($filename);
         $lines = explode("\n", $source);
-        $methodSource = implode("\n", array_slice($lines, $startLine - 1, $endLine - $startLine + 1));
+        $methodSource = implode("\n", \array_slice($lines, $startLine - 1, $endLine - $startLine + 1));
 
         // Verify it accesses the correct global path
-        self::assertStringContainsString("TYPO3_CONF_VARS", $methodSource);
-        self::assertStringContainsString("DRIVER", $methodSource);
-        self::assertStringContainsString("MongoDB", $methodSource);
-        self::assertStringContainsString("ConnectionPool", $methodSource);
+        self::assertStringContainsString('TYPO3_CONF_VARS', $methodSource);
+        self::assertStringContainsString('DRIVER', $methodSource);
+        self::assertStringContainsString('MongoDB', $methodSource);
+        self::assertStringContainsString('ConnectionPool', $methodSource);
     }
 }

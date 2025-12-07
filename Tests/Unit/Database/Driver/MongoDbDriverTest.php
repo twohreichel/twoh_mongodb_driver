@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace TWOH\TwohMongodbDriver\Tests\Unit\Database\Driver;
 
+use Generator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
+use ReflectionClass;
 use RuntimeException;
 use TWOH\TwohMongodbDriver\Database\Driver\MongoDbDriver;
 use TWOH\TwohMongodbDriver\Domain\Model\MongodbConfiguration;
@@ -83,7 +85,7 @@ final class MongoDbDriverTest extends UnitTestCase
         self::assertTrue($result);
     }
 
-    public static function validConfigurationDataProvider(): \Generator
+    public static function validConfigurationDataProvider(): Generator
     {
         yield 'user with string' => ['user', 'admin'];
         yield 'password with string' => ['password', 'secret123'];
@@ -106,7 +108,7 @@ final class MongoDbDriverTest extends UnitTestCase
         $this->subject->isConfigurationValid($params, $field);
     }
 
-    public static function invalidConfigurationDataProvider(): \Generator
+    public static function invalidConfigurationDataProvider(): Generator
     {
         yield 'empty string' => ['field', ''];
         yield 'null value' => ['field', null];
@@ -223,7 +225,7 @@ final class MongoDbDriverTest extends UnitTestCase
     public function creatConfigurationReturnsMongodbConfigurationObject(): void
     {
         // Using reflection to test the protected method
-        $reflection = new \ReflectionClass($this->subject);
+        $reflection = new ReflectionClass($this->subject);
         $method = $reflection->getMethod('creatConfiguration');
         $method->setAccessible(true);
 
@@ -248,7 +250,7 @@ final class MongoDbDriverTest extends UnitTestCase
     #[Test]
     public function creatConfigurationConvertsPortToInteger(): void
     {
-        $reflection = new \ReflectionClass($this->subject);
+        $reflection = new ReflectionClass($this->subject);
         $method = $reflection->getMethod('creatConfiguration');
         $method->setAccessible(true);
 

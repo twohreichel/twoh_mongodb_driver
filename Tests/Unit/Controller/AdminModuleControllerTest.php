@@ -6,13 +6,9 @@ namespace TWOH\TwohMongodbDriver\Tests\Unit\Controller;
 
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
-use TWOH\TwohMongodbDriver\Adapter\MongodbConnectionPoolAdapter;
+use ReflectionClass;
 use TWOH\TwohMongodbDriver\Controller\AdminModuleController;
-use TYPO3\CMS\Backend\Routing\UriBuilder;
-use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
-use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Localization\LanguageService;
-use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
@@ -30,7 +26,7 @@ final class AdminModuleControllerTest extends UnitTestCase
     #[Test]
     public function classHasControllerAttribute(): void
     {
-        $reflection = new \ReflectionClass(AdminModuleController::class);
+        $reflection = new ReflectionClass(AdminModuleController::class);
         $attributes = $reflection->getAttributes();
 
         $hasControllerAttribute = false;
@@ -47,7 +43,7 @@ final class AdminModuleControllerTest extends UnitTestCase
     #[Test]
     public function classIsFinal(): void
     {
-        $reflection = new \ReflectionClass(AdminModuleController::class);
+        $reflection = new ReflectionClass(AdminModuleController::class);
 
         self::assertTrue($reflection->isFinal());
     }
@@ -55,13 +51,13 @@ final class AdminModuleControllerTest extends UnitTestCase
     #[Test]
     public function constructorAcceptsRequiredDependencies(): void
     {
-        $reflection = new \ReflectionClass(AdminModuleController::class);
+        $reflection = new ReflectionClass(AdminModuleController::class);
         $constructor = $reflection->getConstructor();
         $parameters = $constructor->getParameters();
 
         self::assertCount(5, $parameters);
 
-        $parameterNames = array_map(fn($p) => $p->getName(), $parameters);
+        $parameterNames = array_map(static fn($p) => $p->getName(), $parameters);
 
         self::assertContains('moduleTemplateFactory', $parameterNames);
         self::assertContains('iconFactory', $parameterNames);
@@ -73,7 +69,7 @@ final class AdminModuleControllerTest extends UnitTestCase
     #[Test]
     public function hasHandleRequestMethod(): void
     {
-        $reflection = new \ReflectionClass(AdminModuleController::class);
+        $reflection = new ReflectionClass(AdminModuleController::class);
 
         self::assertTrue($reflection->hasMethod('handleRequest'));
 
@@ -84,7 +80,7 @@ final class AdminModuleControllerTest extends UnitTestCase
     #[Test]
     public function hasIndexActionMethod(): void
     {
-        $reflection = new \ReflectionClass(AdminModuleController::class);
+        $reflection = new ReflectionClass(AdminModuleController::class);
 
         self::assertTrue($reflection->hasMethod('indexAction'));
 
@@ -95,7 +91,7 @@ final class AdminModuleControllerTest extends UnitTestCase
     #[Test]
     public function hasBrowseCollectionActionMethod(): void
     {
-        $reflection = new \ReflectionClass(AdminModuleController::class);
+        $reflection = new ReflectionClass(AdminModuleController::class);
 
         self::assertTrue($reflection->hasMethod('browseCollectionAction'));
 
@@ -106,7 +102,7 @@ final class AdminModuleControllerTest extends UnitTestCase
     #[Test]
     public function hasSetDocHeaderMethod(): void
     {
-        $reflection = new \ReflectionClass(AdminModuleController::class);
+        $reflection = new ReflectionClass(AdminModuleController::class);
 
         self::assertTrue($reflection->hasMethod('setDocHeader'));
 
@@ -117,7 +113,7 @@ final class AdminModuleControllerTest extends UnitTestCase
     #[Test]
     public function hasCreateCollectionDropdownMethod(): void
     {
-        $reflection = new \ReflectionClass(AdminModuleController::class);
+        $reflection = new ReflectionClass(AdminModuleController::class);
 
         self::assertTrue($reflection->hasMethod('createCollectionDropdown'));
 
@@ -128,7 +124,7 @@ final class AdminModuleControllerTest extends UnitTestCase
     #[Test]
     public function hasCreateLinkButtonMethod(): void
     {
-        $reflection = new \ReflectionClass(AdminModuleController::class);
+        $reflection = new ReflectionClass(AdminModuleController::class);
 
         self::assertTrue($reflection->hasMethod('createLinkButton'));
 
@@ -139,7 +135,7 @@ final class AdminModuleControllerTest extends UnitTestCase
     #[Test]
     public function hasGetLanguageServiceMethod(): void
     {
-        $reflection = new \ReflectionClass(AdminModuleController::class);
+        $reflection = new ReflectionClass(AdminModuleController::class);
 
         self::assertTrue($reflection->hasMethod('getLanguageService'));
 
@@ -150,7 +146,7 @@ final class AdminModuleControllerTest extends UnitTestCase
     #[Test]
     public function hasGetBackendUserMethod(): void
     {
-        $reflection = new \ReflectionClass(AdminModuleController::class);
+        $reflection = new ReflectionClass(AdminModuleController::class);
 
         self::assertTrue($reflection->hasMethod('getBackendUser'));
 
@@ -161,7 +157,7 @@ final class AdminModuleControllerTest extends UnitTestCase
     #[Test]
     public function handleRequestMethodAcceptsServerRequest(): void
     {
-        $reflection = new \ReflectionClass(AdminModuleController::class);
+        $reflection = new ReflectionClass(AdminModuleController::class);
         $method = $reflection->getMethod('handleRequest');
         $parameters = $method->getParameters();
 
@@ -172,7 +168,7 @@ final class AdminModuleControllerTest extends UnitTestCase
     #[Test]
     public function indexActionMethodHasCorrectParameters(): void
     {
-        $reflection = new \ReflectionClass(AdminModuleController::class);
+        $reflection = new ReflectionClass(AdminModuleController::class);
         $method = $reflection->getMethod('indexAction');
         $parameters = $method->getParameters();
 
@@ -185,7 +181,7 @@ final class AdminModuleControllerTest extends UnitTestCase
     #[Test]
     public function browseCollectionActionMethodHasCorrectParameters(): void
     {
-        $reflection = new \ReflectionClass(AdminModuleController::class);
+        $reflection = new ReflectionClass(AdminModuleController::class);
         $method = $reflection->getMethod('browseCollectionAction');
         $parameters = $method->getParameters();
 
@@ -200,7 +196,7 @@ final class AdminModuleControllerTest extends UnitTestCase
     {
         // The protected method getLanguageService returns $GLOBALS['LANG']
         // We verify this by checking the method implementation via reflection
-        $reflection = new \ReflectionClass(AdminModuleController::class);
+        $reflection = new ReflectionClass(AdminModuleController::class);
         $method = $reflection->getMethod('getLanguageService');
 
         // Check return type
@@ -214,7 +210,7 @@ final class AdminModuleControllerTest extends UnitTestCase
     {
         // The protected method getBackendUser returns $GLOBALS['BE_USER']
         // We verify this by checking the method implementation via reflection
-        $reflection = new \ReflectionClass(AdminModuleController::class);
+        $reflection = new ReflectionClass(AdminModuleController::class);
         $method = $reflection->getMethod('getBackendUser');
 
         // Check return type
@@ -226,7 +222,7 @@ final class AdminModuleControllerTest extends UnitTestCase
     #[Test]
     public function moduleTemplateFactoryPropertyExists(): void
     {
-        $reflection = new \ReflectionClass(AdminModuleController::class);
+        $reflection = new ReflectionClass(AdminModuleController::class);
 
         self::assertTrue($reflection->hasProperty('moduleTemplateFactory'));
     }
@@ -234,7 +230,7 @@ final class AdminModuleControllerTest extends UnitTestCase
     #[Test]
     public function iconFactoryPropertyExists(): void
     {
-        $reflection = new \ReflectionClass(AdminModuleController::class);
+        $reflection = new ReflectionClass(AdminModuleController::class);
 
         self::assertTrue($reflection->hasProperty('iconFactory'));
     }
@@ -242,7 +238,7 @@ final class AdminModuleControllerTest extends UnitTestCase
     #[Test]
     public function mongodbConnectionPoolAdapterPropertyExists(): void
     {
-        $reflection = new \ReflectionClass(AdminModuleController::class);
+        $reflection = new ReflectionClass(AdminModuleController::class);
 
         self::assertTrue($reflection->hasProperty('mongodbConnectionPoolAdapter'));
     }
@@ -250,7 +246,7 @@ final class AdminModuleControllerTest extends UnitTestCase
     #[Test]
     public function uriBuilderPropertyExists(): void
     {
-        $reflection = new \ReflectionClass(AdminModuleController::class);
+        $reflection = new ReflectionClass(AdminModuleController::class);
 
         self::assertTrue($reflection->hasProperty('uriBuilder'));
     }
@@ -258,7 +254,7 @@ final class AdminModuleControllerTest extends UnitTestCase
     #[Test]
     public function pageRendererPropertyExists(): void
     {
-        $reflection = new \ReflectionClass(AdminModuleController::class);
+        $reflection = new ReflectionClass(AdminModuleController::class);
 
         self::assertTrue($reflection->hasProperty('pageRenderer'));
     }

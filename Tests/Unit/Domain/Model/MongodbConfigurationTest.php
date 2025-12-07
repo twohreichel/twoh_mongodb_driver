@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace TWOH\TwohMongodbDriver\Tests\Unit\Domain\Model;
 
+use Generator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -58,7 +59,7 @@ final class MongodbConfigurationTest extends UnitTestCase
         self::assertSame($user, $this->subject->getUser());
     }
 
-    public static function userDataProvider(): \Generator
+    public static function userDataProvider(): Generator
     {
         yield 'empty string' => [''];
         yield 'simple username' => ['admin'];
@@ -89,7 +90,7 @@ final class MongodbConfigurationTest extends UnitTestCase
         self::assertSame($password, $this->subject->getPassword());
     }
 
-    public static function passwordDataProvider(): \Generator
+    public static function passwordDataProvider(): Generator
     {
         yield 'empty string' => [''];
         yield 'simple password' => ['password'];
@@ -120,7 +121,7 @@ final class MongodbConfigurationTest extends UnitTestCase
         self::assertSame($host, $this->subject->getHost());
     }
 
-    public static function hostDataProvider(): \Generator
+    public static function hostDataProvider(): Generator
     {
         yield 'localhost' => ['localhost'];
         yield 'ip address' => ['127.0.0.1'];
@@ -151,7 +152,7 @@ final class MongodbConfigurationTest extends UnitTestCase
         self::assertSame($port, $this->subject->getPort());
     }
 
-    public static function portDataProvider(): \Generator
+    public static function portDataProvider(): Generator
     {
         yield 'zero' => [0];
         yield 'default mongodb port' => [27017];
@@ -181,7 +182,7 @@ final class MongodbConfigurationTest extends UnitTestCase
         self::assertSame($dbname, $this->subject->getDbname());
     }
 
-    public static function dbnameDataProvider(): \Generator
+    public static function dbnameDataProvider(): Generator
     {
         yield 'empty string' => [''];
         yield 'simple name' => ['mydb'];

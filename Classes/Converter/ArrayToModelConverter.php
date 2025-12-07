@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace TWOH\TwohMongodbDriver\Converter;
 
-use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
-
 class ArrayToModelConverter
 {
     /**
@@ -16,14 +14,14 @@ class ArrayToModelConverter
      */
     public static function mapArray(array $array, $object)
     {
-        $class = get_class($object);
+        $class = \get_class($object);
         $methods = get_class_methods($class);
         foreach ($methods as $method) {
             preg_match(' /^(set)(.*?)$/i', $method, $results);
             $pre = $results[1]  ?? '';
             $k = $results[2]  ?? '';
             $k = strtolower($k[0]) . substr($k, 1);
-            If ($pre === 'set' && !empty($array[$k])) {
+            if ($pre === 'set' && !empty($array[$k])) {
                 $object->$method($array[$k]);
             }
         }

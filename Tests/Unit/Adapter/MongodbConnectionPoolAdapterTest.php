@@ -20,7 +20,7 @@ final class MongodbConnectionPoolAdapterTest extends TestCase
 
         self::assertSame(
             $dummyConnection,
-            $adapter->getConnectionPool()
+            $adapter->getConnectionPool(),
         );
     }
 }

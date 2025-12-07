@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace TWOH\TwohMongodbDriver\Database\Connection;
 
 use MongoDB\Collection;
+use MongoDB\Database;
 use MongoDB\DeleteResult;
 use MongoDB\Model\CollectionInfoIterator;
 use MongoDB\UpdateResult;
-use Symfony\Component\Config\Definition\Exception\Exception;
-use MongoDB\Database;
 use TWOH\TwohMongodbDriver\Domain\Model\MongodbConfiguration;
 
 final class MongoDbConnection
@@ -20,7 +19,7 @@ final class MongoDbConnection
     private Database $connection;
 
     /**
-     * @var MongodbConfiguration 
+     * @var MongodbConfiguration
      */
     private MongodbConfiguration $mongodbConfiguration;
 
@@ -29,9 +28,8 @@ final class MongoDbConnection
      */
     public function __construct(
         Database $connection,
-        MongodbConfiguration $mongodbConfiguration
-    )
-    {
+        MongodbConfiguration $mongodbConfiguration,
+    ) {
         $this->setConnection($connection);
         $this->setMongodbConfiguration($mongodbConfiguration);
     }
@@ -45,9 +43,8 @@ final class MongoDbConnection
     public function selectDocuments(
         string $collectionName,
         array $filter,
-        array $options = []
-    ): array
-    {
+        array $options = [],
+    ): array {
         return $this->getConnection()->selectCollection($collectionName)->find($filter, $options)->toArray();
     }
 
@@ -60,9 +57,8 @@ final class MongoDbConnection
     public function countDocuments(
         string $collectionName,
         array $filter,
-        array $options = []
-    ): int
-    {
+        array $options = [],
+    ): int {
         return $this->getConnection()->selectCollection($collectionName)->countDocuments($filter, $options);
     }
 
@@ -77,9 +73,8 @@ final class MongoDbConnection
         string $collectionName,
         array $filter,
         array $update,
-        array $options = []
-    ): UpdateResult
-    {
+        array $options = [],
+    ): UpdateResult {
         return $this->getConnection()->selectCollection($collectionName)->updateOne($filter, $update, $options);
     }
 
@@ -94,9 +89,8 @@ final class MongoDbConnection
         string $collectionName,
         array $filter,
         array $update,
-        array $options = []
-    ): UpdateResult
-    {
+        array $options = [],
+    ): UpdateResult {
         return $this->getConnection()->selectCollection($collectionName)->updateMany($filter, $update, $options);
     }
 
@@ -109,9 +103,8 @@ final class MongoDbConnection
     public function deleteOneDocument(
         string $collectionName,
         array $filter,
-        array $options = []
-    ): DeleteResult
-    {
+        array $options = [],
+    ): DeleteResult {
         return $this->getConnection()->selectCollection($collectionName)->deleteOne($filter, $options);
     }
 
@@ -124,9 +117,8 @@ final class MongoDbConnection
     public function deleteManyDocuments(
         string $collectionName,
         array $filter,
-        array $options = []
-    ): DeleteResult
-    {
+        array $options = [],
+    ): DeleteResult {
         return $this->getConnection()->selectCollection($collectionName)->deleteMany($filter, $options);
     }
 
@@ -139,9 +131,8 @@ final class MongoDbConnection
     public function insertOneDocument(
         string $collectionName,
         array $data,
-        array $options = []
-    ): mixed
-    {
+        array $options = [],
+    ): mixed {
         return $this->getConnection()->selectCollection($collectionName)->insertOne($data, $options)->getInsertedId();
     }
 
@@ -154,9 +145,8 @@ final class MongoDbConnection
     public function insertManyDocuments(
         string $collectionName,
         array $data,
-        array $options = []
-    ): array
-    {
+        array $options = [],
+    ): array {
         return $this->getConnection()->selectCollection($collectionName)->insertMany($data, $options)->getInsertedIds();
     }
 
@@ -167,9 +157,8 @@ final class MongoDbConnection
      */
     public function selectCollection(
         string $collectionName,
-        array $options = []
-    ): Collection
-    {
+        array $options = [],
+    ): Collection {
         return $this->getConnection()->selectCollection($collectionName, $options);
     }
 
@@ -182,9 +171,8 @@ final class MongoDbConnection
     public function modifyCollection(
         string $collectionName,
         array $collectionOptions,
-        array $options = []
-    ): object|array
-    {
+        array $options = [],
+    ): object|array {
         return $this->getConnection()->modifyCollection($collectionName, $collectionOptions, $options);
     }
 
@@ -195,9 +183,8 @@ final class MongoDbConnection
      */
     public function dropCollection(
         string $collectionName,
-        array $options = []
-    ): object|array
-    {
+        array $options = [],
+    ): object|array {
         return $this->getConnection()->dropCollection($collectionName, $options);
     }
 
@@ -208,9 +195,8 @@ final class MongoDbConnection
      */
     public function createCollection(
         string $collectionName,
-        array $options = []
-    ): array|object
-    {
+        array $options = [],
+    ): array|object {
         return $this->getConnection()->createCollection($collectionName, $options);
     }
 
@@ -219,9 +205,8 @@ final class MongoDbConnection
      * @return CollectionInfoIterator
      */
     public function listCollections(
-        array $options = []
-    ): CollectionInfoIterator
-    {
+        array $options = [],
+    ): CollectionInfoIterator {
         return $this->getConnection()->listCollections($options);
     }
 

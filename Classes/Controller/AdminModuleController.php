@@ -32,17 +32,16 @@ final class AdminModuleController
      */
     public function __construct(
         protected ModuleTemplateFactory $moduleTemplateFactory,
-        protected IconFactory           $iconFactory,
+        protected IconFactory $iconFactory,
         protected MongodbConnectionPoolAdapter $mongodbConnectionPoolAdapter,
         private readonly UriBuilder $uriBuilder,
-        private readonly PageRenderer $pageRenderer
-    ) {
-    }
+        private readonly PageRenderer $pageRenderer,
+    ) {}
 
     /**
      * @param ServerRequestInterface $request
-     * @return ResponseInterface
      * @throws RouteNotFoundException
+     * @return ResponseInterface
      */
     public function handleRequest(ServerRequestInterface $request): ResponseInterface
     {
@@ -51,7 +50,7 @@ final class AdminModuleController
         $moduleTemplate = $this->moduleTemplateFactory->create($request);
 
         $this->setDocHeader(
-            $moduleTemplate
+            $moduleTemplate,
         );
 
         $title = $languageService->sL('LLL:EXT:twoh_mongodb_driver/Resources/Private/Language/AdminModule/locallang_mod.xlf:mlang_tabs_tab');
@@ -63,24 +62,24 @@ final class AdminModuleController
         if ($routeActionIdentifier === 'AdminMongodb') {
             $moduleTemplate->setTitle(
                 $title,
-                $languageService->sL('LLL:EXT:twoh_mongodb_driver/Resources/Private/Language/AdminModule/locallang.xlf:module.menu.index')
+                $languageService->sL('LLL:EXT:twoh_mongodb_driver/Resources/Private/Language/AdminModule/locallang.xlf:module.menu.index'),
             );
             return $this->indexAction(
                 $request,
                 $moduleTemplate,
-                $routeActionIdentifier
+                $routeActionIdentifier,
             );
         }
 
         if ($routeActionIdentifier === 'BrowseCollection') {
             $moduleTemplate->setTitle(
                 $title,
-                $languageService->sL('LLL:EXT:twoh_mongodb_driver/Resources/Private/Language/AdminModule/locallang.xlf:module.menu.browseCollection')
+                $languageService->sL('LLL:EXT:twoh_mongodb_driver/Resources/Private/Language/AdminModule/locallang.xlf:module.menu.browseCollection'),
             );
             return $this->browseCollectionAction(
                 $request,
                 $moduleTemplate,
-                $routeActionIdentifier
+                $routeActionIdentifier,
             );
         }
     }
@@ -94,19 +93,18 @@ final class AdminModuleController
     public function indexAction(
         ServerRequestInterface $request,
         ModuleTemplate $view,
-        string $routeActionIdentifier
-    ): ResponseInterface
-    {
+        string $routeActionIdentifier,
+    ): ResponseInterface {
         $languageService = $this->getLanguageService();
-//
-//        $this->pageRenderer->loadJavaScriptModule('@twoh/mongodb-driver/lib/chart.min.js');
-//        $this->pageRenderer->loadJavaScriptModule('@twoh/mongodb-driver/custom/index.view.bar.chart.js');
+        //
+        //        $this->pageRenderer->loadJavaScriptModule('@twoh/mongodb-driver/lib/chart.min.js');
+        //        $this->pageRenderer->loadJavaScriptModule('@twoh/mongodb-driver/custom/index.view.bar.chart.js');
 
         $view->assignMultiple(
             [
                 'headline' => $languageService->sL('LLL:EXT:twoh_mongodb_driver/Resources/Private/Language/AdminModule/locallang.xlf:module.menu.index'),
-                'routeActionIdentifier' => $routeActionIdentifier
-            ]
+                'routeActionIdentifier' => $routeActionIdentifier,
+            ],
         );
 
         return $view->renderResponse('AdminModule/Index');
@@ -121,15 +119,14 @@ final class AdminModuleController
     public function browseCollectionAction(
         ServerRequestInterface $request,
         ModuleTemplate $view,
-        string $routeActionIdentifier
-    ): ResponseInterface
-    {
+        string $routeActionIdentifier,
+    ): ResponseInterface {
         $collectionRecordsCount = 0;
         $languageService = $this->getLanguageService();
         $routing = $request->getAttribute('routing');
 
-//        $this->pageRenderer->loadJavaScriptModule('@twoh/mongodb-driver/lib/chart.min.js');
-//        $this->pageRenderer->loadJavaScriptModule('@twoh/mongodb-driver/custom/browse.collection.view.bar.chart.js');
+        //        $this->pageRenderer->loadJavaScriptModule('@twoh/mongodb-driver/lib/chart.min.js');
+        //        $this->pageRenderer->loadJavaScriptModule('@twoh/mongodb-driver/custom/browse.collection.view.bar.chart.js');
 
         if (isset($routing->getArguments()['collectionName'])) {
             $collectionRecordsCount = $this->mongodbConnectionPoolAdapter->getConnectionPool()->countDocuments(
@@ -137,19 +134,19 @@ final class AdminModuleController
                 [],
                 [
                     'limit' => null,
-                ]
+                ],
             );
         }
 
         $view->assignMultiple(
             [
                 'headline' => $languageService->sL(
-                    'LLL:EXT:twoh_mongodb_driver/Resources/Private/Language/AdminModule/locallang.xlf:module.menu.browseCollection'
+                    'LLL:EXT:twoh_mongodb_driver/Resources/Private/Language/AdminModule/locallang.xlf:module.menu.browseCollection',
                 ) . ': <strong>' . strtoupper($routing->getArguments()['collectionName']) . '</strong>',
                 'routeActionIdentifier' => $routeActionIdentifier,
                 'collectionName' => $routing->getArguments()['collectionName'],
-                'collectionRecordsCount' => $collectionRecordsCount
-            ]
+                'collectionRecordsCount' => $collectionRecordsCount,
+            ],
         );
 
         return $view->renderResponse('AdminModule/Index');
@@ -157,19 +154,17 @@ final class AdminModuleController
 
     /**
      * @param ModuleTemplate $moduleTemplate
-     * @return void
      * @throws RouteNotFoundException
      */
     private function setDocHeader(
-        ModuleTemplate $moduleTemplate
-    ): void
-    {
+        ModuleTemplate $moduleTemplate,
+    ): void {
         $buttonBar = $moduleTemplate->getDocHeaderComponent()->getButtonBar();
 
         $buttonBar->addButton(
             $this->createCollectionDropdown($buttonBar),
             ButtonBar::BUTTON_POSITION_RIGHT,
-            2
+            2,
         );
     }
 
@@ -177,9 +172,8 @@ final class AdminModuleController
      * @throws RouteNotFoundException
      */
     private function createCollectionDropdown(
-        ButtonBar $buttonBar
-    ): ButtonInterface
-    {
+        ButtonBar $buttonBar,
+    ): ButtonInterface {
         $collectionList = $this->mongodbConnectionPoolAdapter->getConnectionPool()->listCollections();
 
         $dropDownButton = $buttonBar->makeDropDownButton()
@@ -192,22 +186,22 @@ final class AdminModuleController
         $dropDownButton->addItem(
             GeneralUtility::makeInstance(DropDownItem::class)
                 ->setLabel('index')
-                ->setHref((string) $this->uriBuilder->buildUriFromRoute(
+                ->setHref((string)$this->uriBuilder->buildUriFromRoute(
                     'admin_mongodb',
-                    []
+                    [],
                 ))
-                ->setTitle('index' . ' ' . 'collection')
+                ->setTitle('index' . ' ' . 'collection'),
         );
 
         foreach ($collectionList as $collectionInfo) {
             $dropDownButton->addItem(
                 GeneralUtility::makeInstance(DropDownItem::class)
                     ->setLabel($collectionInfo['name'])
-                    ->setHref((string) $this->uriBuilder->buildUriFromRoute(
+                    ->setHref((string)$this->uriBuilder->buildUriFromRoute(
                         'browse_collection',
-                        ['collectionName' => $collectionInfo['name']]
+                        ['collectionName' => $collectionInfo['name']],
                     ))
-                    ->setTitle($collectionInfo['name'] . ' ' . $collectionInfo['type'])
+                    ->setTitle($collectionInfo['name'] . ' ' . $collectionInfo['type']),
             );
         }
 
@@ -220,16 +214,14 @@ final class AdminModuleController
      * @param string $uri
      * @param string $title
      * @param string $label
-     * @return void
      */
     private function createLinkButton(
         ModuleTemplate $moduleTemplate,
         string $icon,
         string $uri,
         string $title,
-        string $label
-    ): void
-    {
+        string $label,
+    ): void {
         $buttonBar = $moduleTemplate->getDocHeaderComponent()->getButtonBar();
 
         $list = $buttonBar->makeLinkButton()

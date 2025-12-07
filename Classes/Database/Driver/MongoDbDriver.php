@@ -9,9 +9,10 @@ use Doctrine\DBAL\Driver;
 use Doctrine\DBAL\Driver\API\ExceptionConverter;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Exception;
-use MongoDB\Database;
 use MongoDB\Client;
+use MongoDB\Database;
 use MongoDB\Driver\ServerApi;
+use RuntimeException;
 use TWOH\TwohMongodbDriver\Database\Connection\MongoDbConnection;
 use TWOH\TwohMongodbDriver\Domain\Model\MongodbConfiguration;
 
@@ -32,19 +33,18 @@ class MongoDbDriver implements Driver
      * @return MongoDbConnection
      */
     public function connect(
-        array $params
-    ): MongoDbConnection
-    {
+        array $params,
+    ): MongoDbConnection {
         $mongodbConfiguration = $this->creatConfiguration($params);
 
         try {
             $this->client = new Client(
                 'mongodb://' . $mongodbConfiguration->getUser() . ':' . $mongodbConfiguration->getPassword() . '@' . $mongodbConfiguration->getHost() . ':' . $mongodbConfiguration->getPort() ?? '27017',
                 [],
-                ['serverApi' => new ServerApi((string)ServerApi::V1)]
+                ['serverApi' => new ServerApi((string)ServerApi::V1)],
             );
             $this->database = $this->client->selectDatabase(
-                $mongodbConfiguration->getDbname()
+                $mongodbConfiguration->getDbname(),
             );
 
             // run connection test
@@ -52,23 +52,20 @@ class MongoDbDriver implements Driver
 
             return new MongoDbConnection(
                 $this->database,
-                $mongodbConfiguration
+                $mongodbConfiguration,
             );
         } catch (Exception $e) {
-            throw new \RuntimeException($e->getMessage());
+            throw new RuntimeException($e->getMessage());
         }
     }
 
-    /**
-     * @return void
-     */
     protected function connectionTest(): void
     {
         try {
             // Send a ping to confirm a successful connection
             $this->database->command(['ping' => 1]);
         } catch (Exception $e) {
-            throw new \RuntimeException('Ping MongoDB not successfully. ErrorMessage: ' . $e->getMessage());
+            throw new RuntimeException('Ping MongoDB not successfully. ErrorMessage: ' . $e->getMessage());
         }
     }
 
@@ -77,9 +74,8 @@ class MongoDbDriver implements Driver
      * @return MongodbConfiguration
      */
     protected function creatConfiguration(
-        array $params
-    ): MongodbConfiguration
-    {
+        array $params,
+    ): MongodbConfiguration {
         $mongodbConfiguration = new MongodbConfiguration();
 
         if ($this->isConfigurationValid($params, 'user')) {
@@ -95,7 +91,7 @@ class MongoDbDriver implements Driver
         }
 
         if ($this->isConfigurationValid($params, 'port')) {
-            $mongodbConfiguration->setPort((int) $params['port']);
+            $mongodbConfiguration->setPort((int)$params['port']);
         }
 
         if ($this->isConfigurationValid($params, 'dbname')) {
@@ -112,11 +108,10 @@ class MongoDbDriver implements Driver
      */
     public function isConfigurationValid(
         array $params,
-        string $field
-    ): bool
-    {
+        string $field,
+    ): bool {
         if (empty($params[$field])) {
-            throw new \RuntimeException('[' . $field . '] Configuration is empty!');
+            throw new RuntimeException('[' . $field . '] Configuration is empty!');
         }
 
         return true;
@@ -133,7 +128,6 @@ class MongoDbDriver implements Driver
     /**
      * @param Connection $conn
      * @param AbstractPlatform $platform
-     * @return void
      */
     public function getSchemaManager(Connection $conn, AbstractPlatform $platform): void {}
 

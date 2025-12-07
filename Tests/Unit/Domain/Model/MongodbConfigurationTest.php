@@ -26,4 +26,3 @@ final class MongodbConfigurationTest extends TestCase
         self::assertSame('testdb', $config->getDbname());
     }
 }
-

@@ -28,10 +28,9 @@ class CreateBigDataCommand extends Command implements LoggerAwareInterface
      * @return int
      */
     protected function execute(
-        InputInterface  $input,
-        OutputInterface $output
-    ): int
-    {
+        InputInterface $input,
+        OutputInterface $output,
+    ): int {
         $testDataUserNumber = 1000000;
         $testDataRecordPerUser = 5;
 
@@ -42,7 +41,7 @@ class CreateBigDataCommand extends Command implements LoggerAwareInterface
         try {
             $output->writeln('Create fake User page clicks!');
             $userInteraction = [];
-            for ($j=0;$j<=$testDataRecordPerUser;$j++) {
+            for ($j = 0;$j <= $testDataRecordPerUser;$j++) {
                 $userInteraction[] = 'Page' . $j;
             }
 
@@ -51,7 +50,7 @@ class CreateBigDataCommand extends Command implements LoggerAwareInterface
             $output->writeln('Create user Collection!');
             $output->writeln($userCollection);
 
-            for ($i=0;$i<=$testDataUserNumber;$i++) {
+            for ($i = 0;$i <= $testDataUserNumber;$i++) {
                 $uuid = 'user' . $i;
                 $user = [
                     'username' => 'admin' . $i,
@@ -60,7 +59,7 @@ class CreateBigDataCommand extends Command implements LoggerAwareInterface
                     'uuid' => $uuid,
                     'pageInteractions' => $userInteraction,
                     'age' => 33,
-                    'isActive' => true
+                    'isActive' => true,
                 ];
                 $mongodbConnectionPoolAdapter->getConnectionPool()->insertOneDocument('user', $user);
 
@@ -69,7 +68,7 @@ class CreateBigDataCommand extends Command implements LoggerAwareInterface
         } catch (Exception $e) {
             // @extensionScannerIgnoreLine
             $this->logger->error(
-                'Exception: ' . $e->getMessage()
+                'Exception: ' . $e->getMessage(),
             );
         }
 

@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace TWOH\TwohMongodbDriver\Tests\Unit\Database\Driver;
 
 use PHPUnit\Framework\TestCase;
+use ReflectionMethod;
+use RuntimeException;
 use TWOH\TwohMongodbDriver\Database\Driver\MongoDbDriver;
 use TWOH\TwohMongodbDriver\Domain\Model\MongodbConfiguration;
 
@@ -24,7 +26,7 @@ final class MongoDbDriverTest extends TestCase
 
     public function testIsConfigurationValidThrowsException(): void
     {
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(RuntimeException::class);
 
         $driver = new MongoDbDriver();
         $driver->isConfigurationValid([], 'user');
@@ -39,10 +41,10 @@ final class MongoDbDriverTest extends TestCase
             'password' => '123',
             'host' => 'localhost',
             'port' => 27017,
-            'dbname' => 'testdb'
+            'dbname' => 'testdb',
         ];
 
-        $reflection = new \ReflectionMethod($driver, 'creatConfiguration');
+        $reflection = new ReflectionMethod($driver, 'creatConfiguration');
         $reflection->setAccessible(true);
 
         /** @var MongodbConfiguration $config */

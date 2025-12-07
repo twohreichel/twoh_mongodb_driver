@@ -11,9 +11,8 @@ class CoreUtility
      * @return string
      */
     public static function toUpperCamelCase(
-        string $identifier
-    ): string
-    {
+        string $identifier,
+    ): string {
         $parts = explode('_', $identifier);
         $parts = array_map('ucfirst', $parts);
 

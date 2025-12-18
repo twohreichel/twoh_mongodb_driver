@@ -3,7 +3,7 @@
 [![TYPO3 13](https://img.shields.io/badge/TYPO3-13.4-orange.svg)](https://get.typo3.org/version/13)
 [![PHP](https://img.shields.io/badge/PHP-8.2--8.3-blue.svg)](https://www.php.net/)
 [![License](https://img.shields.io/badge/License-GPL--2.0--or--later-green.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
-[![Version](https://img.shields.io/badge/Version-1.0.4-brightgreen.svg)](https://github.com/twohreichel/twoh_mongodb_driver/releases)
+[![Version](https://img.shields.io/badge/Version-1.0.6-brightgreen.svg)](https://github.com/twohreichel/twoh_mongodb_driver/releases)
 [![MongoDB](https://img.shields.io/badge/MongoDB-Driver-47A248.svg?logo=mongodb&logoColor=white)](https://www.mongodb.com/)
 [![GitHub Issues](https://img.shields.io/github/issues/twohreichel/twoh_mongodb_driver)](https://github.com/twohreichel/twoh_mongodb_driver/issues)
 
@@ -150,6 +150,9 @@ This extension integrates charts via [Chart.js](https://www.chartjs.org/docs/4.4
 
 - 🐛 **[Report Issues](https://github.com/twohreichel/twoh_mongodb_driver/issues)** – Found a bug? Let us know!
 - 📦 **[Source Code](https://github.com/twohreichel/twoh_mongodb_driver)** – View the source on GitHub.
+- 💖 **[Sponsor this Project](https://github.com/sponsors/twohreichel)** – Support development with a GitHub Sponsorship!
+
+If you find this extension useful and want to support its continued development, please consider becoming a sponsor. Your support helps maintain and improve this project, add new features, and keep it compatible with the latest TYPO3 versions. Every contribution, no matter how small, makes a difference!
 
 ---
 

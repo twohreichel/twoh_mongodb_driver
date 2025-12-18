@@ -22,7 +22,7 @@
       "email": "igor.smertin@web.de"
     }
   ],
-  "version": "1.0.5",
+  "version": "1.0.6",
   "support": {
     "issues": "https://github.com/twohreichel/twoh_mongodb_driver/issues",
     "source": "https://github.com/twohreichel/twoh_mongodb_driver",
